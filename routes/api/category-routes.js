@@ -30,6 +30,9 @@ router.get('/:id',async (req, res) => {
   // find one category by its `id` value
   try {
     const category = await Category.findOne({
+    where:{
+      id:req.params.id
+    },
     // be sure to include its associated Products
     includ:[
       {
@@ -71,7 +74,7 @@ router.post('/', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+// ====================  PUT   ====================
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
@@ -92,7 +95,7 @@ router.put('/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+// ====================  Destroy   ====================
 router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
   try {
