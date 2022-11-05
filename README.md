@@ -1,7 +1,7 @@
 # Note Taker Express
 
-* [GitHub repository](https://github.com/luizborges146/employee-departments) Link to the repository<br />
-* [Video Link](https://drive.google.com/file/d/1oZsY8XVWa0WFYXKCUC9DEZ90gR9r0dep/view) This is the video showing the application<br />
+* [GitHub repository](https://github.com/luizborges146/E-commerce) Link to the repository<br />
+* [Video Link](https://drive.google.com/file/d/1iQaqSz7WnZ1RQO_yTLgyJlmwUFSkYyPl/view) This is the video showing the application<br />
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -19,53 +19,58 @@
 8.  [License](#license)
     
 ## [Description](#description)
-The idea of this application is to be able to create an employee track system, so the manager can see who they hire, what department they work, who they work for, the salary they are paying for each role, and not only that, add new employee, roles and departments. The application also allows the user to update the employee table, letting them to change the manger and role.
+The idea of this application is to be able to manipulate the data using routes from express, with that in mind, the user can choose from checking PRODUCTS, CATEGORIES and TAGs, not only checking the description, the user can also Create, Update and Delete from the database. The idea is to support companies that use stock to control their inventory, as the appliaction also controls stock and price for the products.
 
-![alt View Roles](assets/images/View_roles.png)
+The main idea is to have an organized system where the user can add categories, and under categories add items, so they can easily visualize where items are and check the stock for that specific item. 
+
+
+![alt Create a new product](assets/images/create-product.png)
 
 ## [Instalation](#instalation)
-N/A    
+In order to use test this application, you need to create a create an .env file and add you SQL information to it, once it is done, you will be able to run the db/schema that contain the name of the database.
+
+Then one seeds folder, there are a data sample that can be used to test the application.
     
 ## [Usage](#usage)
-Simple and visual access to the Notes.
- * Funcitonalities.
-   * View all employees, roles and departments.
-   * Add new employee, roles and departments.
-   * Update employee role.
-   * Application use CREATE, READ UPDATE in SQL.
-
-##### Bonus
-   * View total salary per department
-   * Update employee manager
-
-![alt View Roles](assets/images/salaryDept.png)
+Simple to use.
+ * Functionalities.
+   * Check all Products, Categories and Tags.
+   * Check for a specific Product, Category and Tag.
+   * Create a new Product, Category and Tag
+   * Update Product, Category and Tag
+   * Delete Product, Category and Tag.
 
 
 
-
-#### Function below is related to the addNewEmployee function, I need to do an extra research as the response from the system was giving name of the role and not the ID (getChoice), so the way to over come it was to create result[result.findIndex((role => role.Title = response.role))].id, that will basically get the index it and conver to the ID before INSERT it to the employee table.
+#### The route below is a get request to identify a specific category ID
 ```
-            {
-                name:"role",
-                type:"list",
-                choices: function() {
-                    let getChoice = result.map((choice) => choice.title);
-                    console.log(getChoice);
-                    return getChoice;
-                },
-                message:"What is their role?",
-            },
-            {
-                name:"manager",
-                type:"input",
-                message:"What is The Manager ID?",
-            },
-        ])
-        .then((response) => {
-            db.query(`INSERT INTO employee(f_name,l_name,role_id,manager_id)
-            VALUES(?,?,?,?)`, [response.firstName, response.lastName, result[result.findIndex((role => role.Title = response.role))].id, response.manager]
-            );
-            menu();
+router.get('/:id',async (req, res) => {
+  // find one category by its `id` value
+  try {
+    const category = await Category.findOne({
+    where:{
+      id:req.params.id
+    },
+    // be sure to include its associated Products
+    includ:[
+      {
+        model:Product,
+        attributes:["id","product_name","price","stock","category_id"]
+      }
+    ]
+  });
+  if (!category) {
+    // Client error responses
+    res.status(404).json({message:"No product found with this ID"});
+    return;
+  }
+  // Successful responses
+  res.status(200).json(category);
+  } catch (err) {
+    // Server error responses
+    res.status(500).json(err);
+  }
+});
 ```
 
   
