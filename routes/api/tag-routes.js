@@ -73,12 +73,12 @@ router.put('/:id', async (req, res) => {
   try {
     const tag = await Tag.update(req.body,{
       where:{
-        id:params.id
+        id:params.params.id
       }
     });
     if (!tag) {
       // Client error responses
-      res.status(404).json({message:"No category created"});
+      res.status(404).json({message:"No tag created"});
       return;
     }
     // Successful responses
@@ -101,7 +101,7 @@ router.delete('/:id', async (req, res) => {
     });
     if (!tag) {
       // Client error responses
-      res.status(404).json({message:"No category created"});
+      res.status(404).json({message:"No tag created"});
       return;
     }
     // Successful responses
