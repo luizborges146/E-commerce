@@ -26,8 +26,16 @@ The main idea is to have an organized system where the user can add categories, 
 
 ![alt Create a new product](assets/images/create-product.png)
 
+
 ## [Instalation](#instalation)
 In order to use test this application, you need to create a create an .env file and add you SQL information to it, once it is done, you will be able to run the db/schema that contain the name of the database.
+
+##### Running the /db/schema.sql
+
+[<img src="./assets/gifs/runningSchema.gif" alt='Gif Adding Schema'>]  
+
+##### unning the /seeds/index.js
+[<img src="assets/gifs/runSeedsJS.gif" alt='Gif adding index.js'>]
 
 Then one seeds folder, there are a data sample that can be used to test the application.
     
