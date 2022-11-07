@@ -34,7 +34,7 @@ In order to use test this application, you need to create a create an .env file 
 
 [<img src="./assets/gifs/runningSchema.gif" alt='Gif Adding Schema'>]  
 
-##### unning the /seeds/index.js
+##### Running the /seeds/index.js
 [<img src="assets/gifs/runSeedsJS.gif" alt='Gif adding index.js'>]
 
 Then one seeds folder, there are a data sample that can be used to test the application.
